@@ -29,8 +29,8 @@
 ## 할 일
 - [x] (2026-10-23 완료) 보류된 작업을 재개한다: `/prd`, `/design`, `/build-plan` 생성과 오케스트레이터 수정. `/prd`는 기획 하네스(`C:\project\planning-harness`)의 `plan/requirements.md`를 입력으로 받는다.
 - [ ] `backend/`와 `frontend/`를 만든 뒤 `.vscode/launch.json`의 `app.main:app`, `npm run dev` 경로가 맞는지 확인한다.
-- [ ] 사용자가 이전 폴더 `C:\project\hackathon-harness`를 확인하고 지운다.
-- [ ] 아직 커밋하지 않은 `.claude/`, `.vscode/`, `CLAUDE.md` 등을 커밋한다.
+- [x] 사용자가 이전 폴더 `C:\project\hackathon-harness`를 확인하고 지운다.
+- [x] 아직 커밋하지 않은 `.claude/`, `.vscode/`, `CLAUDE.md` 등을 커밋한다.
 - [ ] 심사위원 페르소나와 행사 정보는 기획 레포에 있다: `C:\project\planning-harness\judges\`, `event.md`.
 
 ## 참고
