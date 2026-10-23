@@ -1,0 +1,16 @@
+{
+  "editor.formatOnSave": true,
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": { "source.organizeImports": "explicit" }
+  },
+  "[javascript][javascriptreact][typescript][typescriptreact][json][jsonc][css][html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/Scripts/python.exe",
+  "search.exclude": {
+    "_workspace*/**": true,
+    "**/node_modules": true,
+    "**/.venv": true
+  }
+}

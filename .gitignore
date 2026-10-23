@@ -12,6 +12,10 @@ dist/
 .env.*
 !.env.example
 
+# Harness 중간 산출물
+_workspace*/
+.claude/settings.local.json
+
 # OS / Editor
 .DS_Store
 Thumbs.db

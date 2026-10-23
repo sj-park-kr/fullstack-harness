@@ -1,0 +1,72 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.local)",
+      "Read(**/.env.*.local)",
+      "Read(**/.env.development)",
+      "Read(**/.env.production)",
+      "Read(**/.env.test)",
+      "Edit(**/.env)",
+      "Edit(**/.env.local)",
+      "Edit(**/.env.*.local)",
+      "Edit(**/.env.development)",
+      "Edit(**/.env.production)",
+      "Edit(**/.env.test)",
+      "Artifact"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/statusline.mjs\""
+  },
+  "skillOverrides": {
+    "eli5": "user-invocable-only",
+    "frontend-design": "user-invocable-only",
+    "grilling": "user-invocable-only",
+    "grill-me": "user-invocable-only",
+    "prd": "user-invocable-only",
+    "design": "user-invocable-only",
+    "build-plan": "user-invocable-only",
+    "fullstack-orchestrator": "user-invocable-only",
+    "harness": "user-invocable-only",
+    "evolve": "user-invocable-only",
+    "systematic-debugging": "user-invocable-only",
+    "webapp-testing": "user-invocable-only",
+    "computer-use": "user-invocable-only",
+    "orca-cli": "user-invocable-only",
+    "orchestration": "user-invocable-only",
+    "find-skills": "user-invocable-only",
+    "claude-api": "user-invocable-only",
+    "dataviz": "user-invocable-only",
+    "artifact-design": "user-invocable-only",
+    "artifact-diagramming": "user-invocable-only",
+    "artifact-capabilities": "user-invocable-only",
+    "update-config": "user-invocable-only",
+    "keybindings-help": "user-invocable-only",
+    "code-review": "user-invocable-only",
+    "simplify": "user-invocable-only",
+    "fewer-permission-prompts": "user-invocable-only",
+    "loop": "user-invocable-only",
+    "schedule": "user-invocable-only",
+    "claude-in-chrome": "user-invocable-only",
+    "run": "user-invocable-only",
+    "plugin-authoring": "user-invocable-only",
+    "init": "user-invocable-only",
+    "security-review": "user-invocable-only"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|Grep|Glob|Bash|PowerShell|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/block-env.mjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
