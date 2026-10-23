@@ -43,10 +43,10 @@ for n in names:
     for f in dst.rglob("*"):
         if f.suffix in {".md", ".sh", ".yaml", ".yml", ".txt"}:
             t = f.read_text(encoding="utf-8")
-            for rx, rep in rules[:2]:
+            for rx, rep in rules[:3]:
                 t = rx.sub(rep, t)
             # wayfinder ticket labels (`research`, ...) are data, not skills
-            t = "\n".join(l if "wayfinder:" in l else rules[2][0].sub(rules[2][1], l)
+            t = "\n".join(l if "wayfinder:" in l else rules[3][0].sub(rules[3][1], l)
                           for l in t.split("\n"))
             f.write_text(t, encoding="utf-8", newline="\n")
 shutil.copy(src / "LICENSE", skills_dir / "LICENSE-mattpocock.txt")

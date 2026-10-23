@@ -16,7 +16,7 @@ A **flow** is a path through the skills. Most paths run along one **main flow**,
 
 The route most work travels. You have an idea and want it built.
 
-1. **`/mp-grill-with-docs`** sharpens the idea by interview. Start here whenever you are **working in a working directory**: it's stateful, retaining what it learns in `GLOSSARY.md` and ADRs. (No working directory? Use `/mp-grill-me` instead, covered under Standalone. Both run the same `/mp-grilling` primitive; `grill-with-docs` is the one that leaves a paper trail, which makes it the better of the two whenever a repo is there to leave it in.)
+1. **`/mp-grill-with-docs`** sharpens the idea by interview. Start here whenever you are **working in a working directory**: it's stateful, retaining what it learns in `GLOSSARY.md` and ADRs. (No working directory? Use `/mp-grill-me` instead, covered under Standalone. Both run the same `/mp-grilling` primitive; `mp-grill-with-docs` is the one that leaves a paper trail, which makes it the better of the two whenever a repo is there to leave it in.)
 2. **Branch: can you settle every question in conversation?** If a question needs a runnable answer (state, business logic, a UI you have to see), detour through a prototype, bridged by **`/mp-handoff`** in both directions (a prototype lives in its own directory, which is exactly what `/mp-handoff` is for; see Phase boundaries):
    - **`/mp-handoff`** out, then open a fresh session against that file,
    - **`/mp-prototype`** to answer the question with throwaway code,

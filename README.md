@@ -26,7 +26,7 @@ AI 해커톤 구현용 Claude Code 하네스. 기획은 형제 폴더 [planning-
 - [ ] `backend/`와 `frontend/`를 만든 뒤 `.vscode/launch.json` 경로(`app.main:app`, `npm run dev`)가 맞는지 확인한다
 
 ## 추가 스킬 (필요할 때 직접 `/이름`)
-기본 파이프라인에는 끼지 않는다. 모델이 스스로 부르지 않게 설정돼 있다. 예외는 `mp-grilling` 하나다(`/mp-grill-me`가 부르기 때문). 출처는 Matt Pocock [skills](https://github.com/mattpocock/skills)(MIT, `.claude/skills/LICENSE-mattpocock.txt`)이고, 모두 `mp-` 접두사를 붙여 설치한다. 최신으로 업데이트: `python .claude/scripts/update-mp-skills.py`(빼고 싶은 스킬은 스크립트의 `EXCLUDE`에 넣는다).
+기본 파이프라인에는 끼지 않는다. 모델이 스스로 부르지 않게 설정돼 있다. 예외는 `mp-grilling` 하나다(`/mp-grill-me`가 부르기 때문). 출처는 Matt Pocock [skills](https://github.com/mattpocock/skills)(MIT, `.claude/skills/LICENSE-mattpocock.txt`)이고, 모두 `mp-` 접두사를 붙여 설치한다. 최신으로 업데이트: `python .claude/scripts/update-mp-skills.py`(빼고 싶은 스킬은 스크립트의 `EXCLUDE`에 넣는다). **용도·순서·차이 상세는 [MP-SKILLS.md](MP-SKILLS.md).**
 
 | 분류 | 스킬 | 용도 |
 | --- | --- | --- |
@@ -64,7 +64,7 @@ AI 해커톤 구현용 Claude Code 하네스. 기획은 형제 폴더 [planning-
 | | `/mp-claude-handoff` | 지금 대화를 새 백그라운드 에이전트에 넘긴다 |
 | | `/mp-loop-me` | 만들고 싶은 워크플로를 캐물어 스펙으로 만든다 |
 | | `/mp-setup-ts-deep-modules` | TS 레포에 dependency-cruiser로 모듈 경계를 건다 |
-| | `/mp-writing-fragments`, `/mp-writing-beats`, `/mp-writing-shape` | 글쓰기 3단계: 조각 모으기 → 흐름 짜기 → 문단 다듬기 |
+| | `/mp-writing-fragments` → `/mp-writing-beats` 또는 `/mp-writing-shape` | 글쓰기: 조각 모으기 → (흐름을 골라 가며 쓰기 / 논지를 정하고 문단 단위로 쓰기) |
 
 ## 출처
 `/prd`, `/build-plan`, `/design`의 일부는 Matt Pocock의 [skills](https://github.com/mattpocock/skills)(MIT)에서, `systematic-debugging`은 Jesse Vincent의 [superpowers](https://github.com/obra/superpowers)(MIT)에서, `frontend-design`과 `webapp-testing`은 Anthropic(Apache 2.0)에서 가져왔다.

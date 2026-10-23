@@ -26,6 +26,7 @@
 
 **메모장:** 다음 세션에도 지켜야 하고 코드·문서·git으로 알 수 없는 결정·선호·제약이 프롬프트에 나오면 `NOTES.md`에 한 줄로 적는다. 적을 때 낡거나 겹치는 줄은 지우거나 합친다. 일회성 정보, 진행 상황, 이미 규칙에 있는 것은 적지 않는다.
 @NOTES.md
+**TODO:** 남은 작업과 사용자가 확인·결정할 일은 `TODO.md`에 `- [ ]` 한 줄로 적는다. 생기면 바로 추가하고, 끝나면 지운다(완료 기록은 남기지 않는다). "남은 거"를 물으면 이 파일로 답한다.
 
 **변경 이력:**
 | 날짜 | 변경 내용 | 대상 | 사유 |
@@ -37,3 +38,4 @@
 | 2026-10-23 | 2.5시간 일정, 시간 동결, 단일 서비스 배포(Railway, 대안 cloudflared), 목업·제약 연결, 중복 규칙 제거 | 전체 | 감사 결과: 배포 경로 없음, 7시간 가정 |
 | 2026-10-23 | E2E 5회 반영: Claude 호출 설정(CLAUDE_MODEL, 폴백 비표시), 포트는 architecture.md 한 곳, Phase 1 LLM 스모크, Phase 2=AI 핵심, 배포 모드 분기(Dockerfile은 railway만), /prd는 링크+델타, 사전 점검, with_server로만 서버 기동·정지, qa 스크린샷 → planning plan/shots, builder에 claude-api 허용 | design, build-plan, prd, fullstack-orchestrator, builder, qa, launch.json, settings.json, with_server.py | 5전 0승: AI 안 보임, 포트·경로 하드코딩, 배포 강제, 셸 자살 |
 | 2026-10-23 | 맷 포콕 스킬 38개에 `mp-` 접두사, `.claude/scripts/update-mp-skills.py`로 업데이트 | skills, settings.json, README | 출처 구분, 원본 업데이트 |
+| 2026-10-23 | TODO.md 규칙(남은 일·확인할 일, 로컬 전용) | CLAUDE.md, .gitignore | 사용자가 남은 일을 매번 묻지 않게 |
