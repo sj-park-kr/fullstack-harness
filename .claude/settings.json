@@ -21,15 +21,11 @@
     "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/statusline.mjs\""
   },
   "skillOverrides": {
-    "eli5": "user-invocable-only",
     "frontend-design": "user-invocable-only",
-    "grilling": "user-invocable-only",
-    "grill-me": "user-invocable-only",
     "prd": "user-invocable-only",
     "design": "user-invocable-only",
     "build-plan": "user-invocable-only",
     "fullstack-orchestrator": "user-invocable-only",
-    "harness": "user-invocable-only",
     "evolve": "user-invocable-only",
     "systematic-debugging": "user-invocable-only",
     "webapp-testing": "user-invocable-only",
@@ -37,7 +33,6 @@
     "orca-cli": "user-invocable-only",
     "orchestration": "user-invocable-only",
     "find-skills": "user-invocable-only",
-    "claude-api": "user-invocable-only",
     "dataviz": "user-invocable-only",
     "artifact-design": "user-invocable-only",
     "artifact-diagramming": "user-invocable-only",
@@ -53,7 +48,21 @@
     "run": "user-invocable-only",
     "plugin-authoring": "user-invocable-only",
     "init": "user-invocable-only",
-    "security-review": "user-invocable-only"
+    "security-review": "user-invocable-only",
+    "mp-code-review": "user-invocable-only",
+    "mp-codebase-design": "user-invocable-only",
+    "mp-diagnosing-bugs": "user-invocable-only",
+    "mp-domain-modeling": "user-invocable-only",
+    "mp-git-guardrails-claude-code": "user-invocable-only",
+    "mp-migrate-to-shoehorn": "user-invocable-only",
+    "mp-pr": "user-invocable-only",
+    "mp-prototype": "user-invocable-only",
+    "mp-research": "user-invocable-only",
+    "mp-scaffold-exercises": "user-invocable-only",
+    "mp-setup-pre-commit": "user-invocable-only",
+    "mp-tdd": "user-invocable-only",
+    "mp-wizard": "user-invocable-only",
+    "mp-writing-for-agents": "user-invocable-only"
   },
   "hooks": {
     "PreToolUse": [

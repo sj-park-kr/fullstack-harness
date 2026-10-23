@@ -6,7 +6,8 @@
       "type": "debugpy",
       "request": "launch",
       "module": "uvicorn",
-      "args": ["app.main:app", "--reload", "--port", "8000"],
+      "args": ["app.main:app", "--reload"],
+      "env": { "UVICORN_PORT": "${env:BACKEND_PORT}" },
       "cwd": "${workspaceFolder}/backend",
       "envFile": "${workspaceFolder}/backend/.env",
       "jinja": true

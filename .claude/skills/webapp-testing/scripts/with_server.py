@@ -92,6 +92,8 @@ def main():
         # Clean up all servers
         print(f"\nStopping {len(server_processes)} server(s)...")
         for i, process in enumerate(server_processes):
+            if sys.platform == 'win32':  # shell=True: kill the tree we started, not just cmd.exe
+                subprocess.run(['taskkill', '/T', '/F', '/PID', str(process.pid)], capture_output=True)
             try:
                 process.terminate()
                 process.wait(timeout=5)

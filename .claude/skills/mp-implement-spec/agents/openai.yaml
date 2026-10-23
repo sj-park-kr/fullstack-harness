@@ -1,0 +1,5 @@
+interface:
+  display_name: "Implement Spec"
+  short_description: "Implement the result of /mp-to-spec and /mp-to-tickets in code."
+policy:
+  allow_implicit_invocation: false
