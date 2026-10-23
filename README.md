@@ -6,7 +6,7 @@ AI 해커톤 구현용 Claude Code 하네스. 기획은 형제 폴더 [planning-
 ```
 /prd                      # ../planning-harness/plan/requirements.md → docs/prd.md
 /design                   # → docs/architecture.md, api.md, adr/
-/build-plan               # → docs/plan.md (단계, builder 배치, 배포 모드)
+/build-plan               # → docs/plan.md (고정 결정, 배포 모드) + .scratch/build/issues/ (단계 티켓)
 /fullstack-orchestrator   # 단계별 구현 → qa → 배포. "다음 단계", "배포"로 이어 간다
 ```
 문제가 생겼을 때: `/systematic-debugging`(버그 원인), `/webapp-testing`(Playwright 점검). 행사 후: `/evolve`(회고 반영).
@@ -16,12 +16,14 @@ AI 해커톤 구현용 Claude Code 하네스. 기획은 형제 폴더 [planning-
 | --- | --- | --- | --- |
 | 1 | `/prd` | requirements.md를 링크하고, 결정·범위 조정만 덧붙인다 | `docs/prd.md` |
 | 2 | `/design` | architect가 스택, 포트, Claude 호출 설정(키 없을 때 대체 경로 포함)을 정한다 | `docs/architecture.md`, `docs/api.md`, `docs/adr/` |
-| 3 | `/build-plan` | 1단계 뼈대와 LLM 스모크 호출, 2단계 AI 핵심 순으로 수직 슬라이스를 나눈다 | `docs/plan.md` |
+| 3 | `/build-plan` | 1단계 뼈대와 LLM 스모크 호출, 2단계 AI 핵심 순으로 수직 슬라이스를 나눈다 | `docs/plan.md`, `.scratch/build/issues/` |
 | 4 | `/fullstack-orchestrator` | 사전 점검 후 단계마다 builder 구현과 qa를 하고, 배포 모드(railway/cloudflared/local)대로 배포한다 | `backend/`, `frontend/`, 데모 URL, `../planning-harness/plan/shots/` |
 
 ## 행사 전 준비
-- [ ] Node, Python 3.11+, `pip install playwright` 후 `playwright install chromium`
-- [ ] 환경변수 `ANTHROPIC_API_KEY`를 설정하고, `CLAUDE_MODEL`(기본 `claude-sonnet-5-5`)로 실제 호출을 한 번 해 본다
+- [ ] Node, Python 3.11+, `pip install playwright`(uv Python이면 `uv pip install --system --break-system-packages playwright`) 후 `playwright install chromium`
+- [ ] AI 호출 경로를 하나 확인한다. 순서는 API 키 → 로컬 CLI → 데모 응답이다.
+  - API 키: 환경변수 `ANTHROPIC_API_KEY`, `CLAUDE_MODEL`(기본 `claude-sonnet-5-5`)로 실제 호출 1회
+  - 키가 없으면: `claude -p "hi" --max-turns 1`이 응답하는지 확인(로컬 전용, 호출마다 수 초)
 - [ ] (선택) 배포: `npm i -g @railway/cli` 후 `railway login`. 대안은 `cloudflared`
 - [ ] `backend/`와 `frontend/`를 만든 뒤 `.vscode/launch.json` 경로(`app.main:app`, `npm run dev`)가 맞는지 확인한다
 

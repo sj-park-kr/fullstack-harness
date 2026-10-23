@@ -14,6 +14,7 @@ Usage:
       -- python test.py
 """
 
+import os
 import subprocess
 import socket
 import time
@@ -65,19 +66,27 @@ def main():
         for i, server in enumerate(servers):
             print(f"Starting server {i+1}/{len(servers)}: {server['cmd']}")
 
+            # Server output goes to a log file (an unread PIPE hides errors and can block the server)
+            os.makedirs('_workspace', exist_ok=True)
+            log_path = os.path.join('_workspace', f"server-{server['port']}.log")
+            log = open(log_path, 'w', encoding='utf-8', errors='replace')
             # Use shell=True to support commands with cd and &&
             process = subprocess.Popen(
                 server['cmd'],
                 shell=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE
+                stdout=log,
+                stderr=subprocess.STDOUT,
+                env={**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUNBUFFERED': '1'}
             )
             server_processes.append(process)
 
             # Wait for this server to be ready
-            print(f"Waiting for server on port {server['port']}...")
+            print(f"Waiting for server on port {server['port']} (log: {log_path})...")
             if not is_server_ready(server['port'], timeout=args.timeout):
-                raise RuntimeError(f"Server failed to start on port {server['port']} within {args.timeout}s")
+                log.flush()
+                with open(log_path, encoding='utf-8', errors='replace') as f:
+                    print(''.join(f.readlines()[-30:]))
+                raise RuntimeError(f"Server failed to start on port {server['port']} within {args.timeout}s (log: {log_path})")
 
             print(f"Server ready on port {server['port']}")
 

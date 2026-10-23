@@ -8,7 +8,7 @@
 
 - **이슈 트래커가 필요한 스킬이 있다.** `mp-to-spec`, `mp-to-tickets`, `mp-implement-spec`, `mp-triage`, `mp-wayfinder`, `mp-code-review`(스펙 찾기)가 그렇다. 처음 쓰기 전에 `/mp-setup-matt-pocock-skills`를 한 번 실행한다. GitHub 이슈가 없으면 "local"을 고른다. 그러면 `.scratch/` 폴더에 마크다운 파일로 쌓인다.
 - **용어집과 ADR.** 여러 스킬이 `GLOSSARY.md`(프로젝트 용어집)와 ADR(되돌리기 어려운 결정 기록)을 읽고 쓴다. 파일이 없으면 필요할 때 만든다.
-- **해커톤 당일에는 우리 파이프라인이 먼저다.** 기획은 `/plan-orchestrator`, 구현은 `/prd → /design → /build-plan → /fullstack-orchestrator`다. `mp-*`는 막혔을 때 꺼내는 도구다. 당일에 쓸 만한 것에는 ★를 붙였다.
+- **해커톤 당일에는 우리 파이프라인이 먼저다.** 기획은 `/plan-orchestrator`, 구현은 `/prd → /design → /build-plan → /fullstack-orchestrator`다. `mp-*`는 막혔을 때 꺼내는 도구다. `/build-plan`이 만드는 단계 티켓은 로컬 트래커 형식(`.scratch/build/issues/`)이라 `/mp-implement 티켓경로`, `/mp-code-review`가 바로 읽는다(셋업 불필요). 당일에 쓸 만한 것에는 ★를 붙였다.
 
 ## 큰 흐름: 아이디어 → 출시
 

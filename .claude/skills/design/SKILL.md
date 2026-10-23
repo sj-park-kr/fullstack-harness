@@ -27,7 +27,13 @@ requirements.md 화면 표에 목업이 있으면 화면 구성과 문구를 목
 - 배포: 서비스 1개. FastAPI가 API 라우트 다음에 frontend/dist를 StaticFiles(html=True)로 "/"에 마운트한다. dist 경로는 main.py 기준으로 잡아 로컬과 이미지에서 모두 맞게 하고, 폴더가 없으면(개발 중) 마운트를 건너뛴다. 루트 Dockerfile: node로 frontend 빌드 → python 이미지에서 uvicorn app.main:app --host 0.0.0.0 --port $PORT. Dockerfile은 docs/plan.md `배포: railway`일 때만 만든다. 새로고침 404를 피하려고 URL 경로 라우팅 대신 화면 상태로 전환한다.
 - 데이터: 메모리나 SQLite 파일과 시드 데이터. 로그인은 빼거나 데모 계정.
 - AI: Claude API는 backend에서만 `anthropic` SDK로 부른다. 키는 환경 변수 ANTHROPIC_API_KEY(.env 파일은 읽지 않는다, .env.example에 이름만), 모델은 환경 변수 CLAUDE_MODEL, 기본 claude-sonnet-5-5. 타임아웃 20초.
-- 폴백 순서: API 키 → 로컬 `claude -p "<짧은 프롬프트>" --max-turns 1`(subprocess, 실행 파일은 `shutil.which("claude")`, cwd는 임시 폴더, 타임아웃 60초) → 미리 만든 데모 응답(실제 응답과 같은 형식). 로컬 CLI는 로컬에서만 된다(railway 불가). 호출마다 수 초 걸리니 화면에 로딩 상태를 둔다. 화면은 같은 UI로 보여 주고 "cache", "rules mode", "fallback" 같은 표시를 하지 않는다. 폴백 여부는 서버 로그에만 남긴다.
+- 폴백 순서: API 키 → 로컬 CLI → 미리 만든 데모 응답(실제 응답과 같은 형식).
+  - 로컬 CLI: `[shutil.which("claude"), "-p", "--model", CLAUDE_MODEL, "--output-format", "json", "--max-turns", "1"]`, 프롬프트는 stdin으로 넘긴다(긴 입력도 됨). cwd는 임시 폴더, 타임아웃 120초. JSON의 `result`가 답, `total_cost_usd`가 실제 원가다. 종료 코드가 0이 아니거나, JSON이 깨졌거나, `is_error`가 true면(사용량 한도·인증 오류도 종료 코드 0에 `is_error: true`로 온다) 실패로 보고 다음 폴백으로 간다. `result`를 그대로 화면에 내보내지 않는다. 로컬에서만 된다: railway에서는 데모 응답만 나오므로, 키가 없으면 공개 링크는 로컬 서버를 cloudflared로 연다.
+  - 한 번에 10초 넘는 호출은 항목별로 쪼개 병렬(최대 4개)로 부르고, 끝난 항목부터 화면에 띄운다.
+- AI 깊이: M1은 호출 2단계 이상의 파이프라인이다(예: 추출 → 검증·근거 대조 → 생성). 단계마다 이름, 입력 요약, 출력, 소요 시간을 화면에 보인다. 미션이 에이전트를 요구하면 단계를 각각 에이전트로 이름 붙인다.
+- 숫자: 금액·점수 같은 계산은 AI가 아니라 서버의 고정 규칙·표로 한다(같은 입력이면 같은 숫자). AI는 근거와 분류만 낸다. 데모용 고정 입력 1개를 시드로 둔다.
+- 같은 입력 캐시(memo)를 두면 적중했을 때도 `source`는 원래 값, `cached: true`, `latency_ms`는 원래 호출 시간을 넣는다. 화면 시간 표시는 원래 호출 시간을 쓴다.
+- AI 응답 JSON에 `source`(api|cli|demo), `cached`(true|false), `latency_ms`, `cost_usd`를 넣는다. 화면에는 "cache", "fallback", source 같은 표시를 하지 않는다(지연 시간은 보여도 된다). 매 호출을 서버 로그에 한 줄로 남긴다.
 
 산출물(새 파일은 Write, 기존 파일은 바뀐 곳만 Edit):
 1. docs/architecture.md: 맨 위 `## 설정`(BACKEND_PORT, FRONTEND_PORT, CLAUDE_MODEL 기본값, 환경 변수 이름), AI 호출 지점(기능 ID)·프롬프트·폴백 데이터 위치, 구성 요소, 디렉터리 구조, 데이터 모델, 화면 목록과 흐름, 외부 서비스, 환경 변수 이름. 기능 ID와 구성 요소를 연결한다.
