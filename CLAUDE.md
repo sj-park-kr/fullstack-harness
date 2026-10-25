@@ -12,9 +12,9 @@
 
 **스킬:** 위 파이프라인 스킬과 `ponytail`(builder는 Claude 호출 코드에 `claude-api`도)은 스스로 쓴다. 맷 포콕 스킬과 내장 스킬은 사용자가 `/이름`으로 지정할 때만 쓰고, 그 지침은 위임 프롬프트에 넣는다.
 
-**위임:** 여러 파일 탐색은 `scout`, 구현은 `builder`, 설계와 막힌 버그는 `architect`, 검증은 `qa`. 한두 줄 수정은 직접 한다.
+**위임:** 거의 모든 작업은 서브에이전트에 맡긴다. 여러 파일 탐색은 `scout`, 구현은 `builder`, 설계와 막힌 버그는 `architect`, 검증은 `qa`, 그 밖의 조사·문서 작성은 범용 서브에이전트. 메인은 작업을 나누고, 위임 프롬프트를 쓰고, 결과를 검토·통합해 보고한다. 서로 독립인 작업은 한 메시지에서 병렬로 띄운다. 위임 프롬프트에는 목표, 먼저 읽을 파일, 이미 확인한 것, 산출물 경로·형식, 이 파일의 규칙을 적는다. 메인이 직접 하는 것: 한두 줄 수정, 바로 답할 수 있는 질문, 사용자 결정이 필요한 질문.
 
-**응답:** `caveman` 규칙은 훅(`.claude/hooks/caveman.mjs`)이 메인 세션과 모든 서브에이전트에 넣는다. 사용자가 "normal mode"라고 할 때까지 따른다. `docs/` 문서는 caveman 말투로 쓰지 않는다.
+**응답:** `caveman` 규칙은 훅(`.claude/hooks/caveman.mjs`)이 세션 시작·매 턴·모든 서브에이전트에 넣는다. 사용자가 "normal mode"라고 할 때까지 따른다. `docs/` 문서는 caveman 말투로 쓰지 않는다.
 
 **코드:** 코드를 쓰거나 고치기 전에 `ponytail`을 불러와 따른다.
 
@@ -41,3 +41,5 @@
 | 2026-10-23 | 맷 포콕 스킬 38개에 `mp-` 접두사, `.claude/scripts/update-mp-skills.py`로 업데이트 | skills, settings.json, README | 출처 구분, 원본 업데이트 |
 | 2026-10-23 | TODO.md 규칙(남은 일·확인할 일, 로컬 전용) | CLAUDE.md, .gitignore | 사용자가 남은 일을 매번 묻지 않게 |
 | 2026-10-25 | caveman을 SessionStart·SubagentStart 훅으로 항상 적용, 파이프라인 스킬 자동 호출(요청 보고 단계 선택), eli5·frontend-design 자동 허용 | CLAUDE.md, settings.json, hooks/caveman.mjs, README | 해커톤 회고: 플래닝·서브에이전트에 caveman 미적용, 스킬 이름을 매번 말하기 힘듦 |
+| 2026-10-25 | caveman 훅에 UserPromptSubmit 추가: 매 턴 짧은 리마인더, "normal mode"/"stop caveman"으로 끄고 "/caveman"으로 다시 켬(세션별) | settings.json, hooks/caveman.mjs, CLAUDE.md | SessionStart만으로는 훅 추가 전에 시작된 세션·긴 세션에서 caveman이 빠짐 |
+| 2026-10-25 | 위임 규칙 강화: 거의 모든 작업을 서브에이전트에 맡기고(전용 에이전트 없으면 범용) 메인은 나누기·검토·통합·보고 | CLAUDE.md | 사용자 요청: 위임 범위가 탐색·구현·검증으로만 한정돼 있었음 |
