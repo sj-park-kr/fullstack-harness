@@ -2,7 +2,7 @@
 
 AI 해커톤 구현용 Claude Code 하네스. 기획은 형제 폴더 [planning-harness](../planning-harness)가 맡는다.
 
-## 기본 파이프라인 (이것만 순서대로)
+## 기본 파이프라인 (말로 요청하면 알아서 이 순서로 호출된다. `/이름`으로 직접 불러도 된다)
 ```
 /prd                      # ../planning-harness/plan/requirements.md → docs/prd.md
 /design                   # → docs/architecture.md, api.md, adr/
@@ -26,7 +26,7 @@ AI 해커톤 구현용 Claude Code 하네스. 기획은 형제 폴더 [planning-
 - [ ] `backend/`와 `frontend/`를 만든 뒤 `.vscode/launch.json` 경로(`app.main:app`, `npm run dev`)가 맞는지 확인한다
 
 ## 추가 스킬 (필요할 때 직접 `/이름`)
-기본 파이프라인에는 끼지 않는다. 모델이 스스로 부르지 않게 설정돼 있다. 예외는 `mp-grilling` 하나다(`/mp-grill-me`가 부르기 때문). 출처는 Matt Pocock [skills](https://github.com/mattpocock/skills)(MIT, `.claude/skills/LICENSE-mattpocock.txt`)이고, 모두 `mp-` 접두사를 붙여 설치한다. 최신으로 업데이트: `python .claude/scripts/update-mp-skills.py`(빼고 싶은 스킬은 스크립트의 `EXCLUDE`에 넣는다). **용도·순서·차이 상세는 [MP-SKILLS.md](MP-SKILLS.md).**
+기본 파이프라인에는 끼지 않는다. 모델이 스스로 부르지 않게 설정돼 있다. caveman 말투는 `.claude/hooks/caveman.mjs` 훅이 메인 세션과 서브에이전트에 항상 넣는다. 예외는 `mp-grilling` 하나다(`/mp-grill-me`가 부르기 때문). 출처는 Matt Pocock [skills](https://github.com/mattpocock/skills)(MIT, `.claude/skills/LICENSE-mattpocock.txt`)이고, 모두 `mp-` 접두사를 붙여 설치한다. 최신으로 업데이트: `python .claude/scripts/update-mp-skills.py`(빼고 싶은 스킬은 스크립트의 `EXCLUDE`에 넣는다). **용도·순서·차이 상세는 [MP-SKILLS.md](MP-SKILLS.md).**
 
 | 분류 | 스킬 | 용도 |
 | --- | --- | --- |

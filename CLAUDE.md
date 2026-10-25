@@ -2,18 +2,19 @@
 
 해커톤 데모 빌드 하네스. 2026-10-24 일정: 10:45 구현 시작, 13:15 기능 동결, 13:45 배포 링크 고정, 14:30 제출. 심사위원은 데모 링크와 덱 2장을 혼자 본다.
 
-**파이프라인:** 사용자가 순서대로 직접 호출한다. 문서는 `docs/`에 두고 `docs/index.md`에서 링크한다.
+**파이프라인:** 사용자는 스킬 이름을 말하지 않는다. 요청을 보고 아래에서 맞는 단계를 골라 스스로 호출하고, 앞 단계 산출물이 없으면 그 단계부터 이어 간다. 고른 단계는 한 줄로 알린다. 문서는 `docs/`에 두고 `docs/index.md`에서 링크한다.
 1. `/prd` → `docs/prd.md` (입력: 형제 폴더 `../planning-harness/plan/requirements.md`)
 2. `/design` → `docs/architecture.md`, `docs/api.md`, `docs/adr/`
 3. `/build-plan` → `docs/plan.md`
 4. `/fullstack-orchestrator` → 단계별 구현, 단계마다 qa, 배포
-5. 필요할 때: `/systematic-debugging`, `/webapp-testing`, `/evolve`(행사 후 회고)
+5. 버그·에러·"안 돼" → `systematic-debugging`. 화면 동작 확인·스크린샷 → `webapp-testing`. UI 새로 만들기·디자인 → `frontend-design`. "설명해줘"·"이해 안 돼" → `eli5`.
+6. `/evolve`(행사 후 회고)는 사용자가 부를 때만.
 
-**스킬:** `caveman`, `ponytail`(builder는 Claude 호출 코드에 `claude-api`도)만 스스로 쓴다. 나머지(맷 포콕 스킬 포함)는 사용자가 `/이름`으로 지정할 때만 쓰고, 그 지침은 위임 프롬프트에 넣는다.
+**스킬:** 위 파이프라인 스킬과 `ponytail`(builder는 Claude 호출 코드에 `claude-api`도)은 스스로 쓴다. 맷 포콕 스킬과 내장 스킬은 사용자가 `/이름`으로 지정할 때만 쓰고, 그 지침은 위임 프롬프트에 넣는다.
 
 **위임:** 여러 파일 탐색은 `scout`, 구현은 `builder`, 설계와 막힌 버그는 `architect`, 검증은 `qa`. 한두 줄 수정은 직접 한다.
 
-**응답:** 세션 첫 응답 전에 `caveman`을 불러오고 사용자가 "normal mode"라고 할 때까지 따른다. `docs/` 문서는 caveman 말투로 쓰지 않는다.
+**응답:** `caveman` 규칙은 훅(`.claude/hooks/caveman.mjs`)이 메인 세션과 모든 서브에이전트에 넣는다. 사용자가 "normal mode"라고 할 때까지 따른다. `docs/` 문서는 caveman 말투로 쓰지 않는다.
 
 **코드:** 코드를 쓰거나 고치기 전에 `ponytail`을 불러와 따른다.
 
@@ -39,3 +40,4 @@
 | 2026-10-23 | E2E 5회 반영: Claude 호출 설정(CLAUDE_MODEL, 폴백 비표시), 포트는 architecture.md 한 곳, Phase 1 LLM 스모크, Phase 2=AI 핵심, 배포 모드 분기(Dockerfile은 railway만), /prd는 링크+델타, 사전 점검, with_server로만 서버 기동·정지, qa 스크린샷 → planning plan/shots, builder에 claude-api 허용 | design, build-plan, prd, fullstack-orchestrator, builder, qa, launch.json, settings.json, with_server.py | 5전 0승: AI 안 보임, 포트·경로 하드코딩, 배포 강제, 셸 자살 |
 | 2026-10-23 | 맷 포콕 스킬 38개에 `mp-` 접두사, `.claude/scripts/update-mp-skills.py`로 업데이트 | skills, settings.json, README | 출처 구분, 원본 업데이트 |
 | 2026-10-23 | TODO.md 규칙(남은 일·확인할 일, 로컬 전용) | CLAUDE.md, .gitignore | 사용자가 남은 일을 매번 묻지 않게 |
+| 2026-10-25 | caveman을 SessionStart·SubagentStart 훅으로 항상 적용, 파이프라인 스킬 자동 호출(요청 보고 단계 선택), eli5·frontend-design 자동 허용 | CLAUDE.md, settings.json, hooks/caveman.mjs, README | 해커톤 회고: 플래닝·서브에이전트에 caveman 미적용, 스킬 이름을 매번 말하기 힘듦 |
